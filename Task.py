@@ -62,7 +62,7 @@ class Task:
     def setLateStartDate(self, date):
         self.lateStartDate = date
 
-    def getlateStartDate(self):
+    def getLateStartDate(self):
         return self.lateStartDate
 
     def setLateCompleationDate(self, date):

@@ -23,10 +23,10 @@ class Project:
                         task.setEarlyCompleationDate(0)
                         remainingTasks.remove(task)
                     else:
-                        earliestCompleationDateTask = min(
-                            task.getPredecessors(), key=lambda x: x.getEarlyCompleationDate())
+                        latestCompleationDateTask = max(
+                            task.getPredecessors(), key=lambda x: x.getEarlyCompleationDate())  # max her, ikke min som det står i oppgaven. Det gir mye mer mening i mitt hodet, og eller i tabellen
                         task.setEarlyStartDate(
-                            earliestCompleationDateTask.getEarlyCompleationDate())
+                            latestCompleationDateTask.getEarlyCompleationDate())
 
                         task.setEarlyCompleationDate(
                             int(task.getEarlyStartDate()) + int(task.getExpectedDuration()))
@@ -40,13 +40,34 @@ class Project:
             print(
                 f' Task: {task.getTaskID()} | Predecessor: {[p.getTaskID() for p in task.getPredecessors()]} | Succsessor: {[p.getTaskID() for p in task.getSuccessors()]} | Early Start Date: {task.getEarlyStartDate()}| Early Compleation Date: {task.getEarlyCompleationDate()}')
 
+    def setLateDates(self):
+        remainingTasks = self.getTasks().copy()
+        while len(remainingTasks) > 0:
+            for task in remainingTasks:
+                if not set(task.getSuccessors()).intersection(set(remainingTasks)):
+                    if len(task.getSuccessors()) == 0:
+                        task.setLateStartDate(self.getMinimumProjectDuration())
+                        remainingTasks.remove(task)
+                    else:
+                        latestStartDateTask = min(
+                            task.getSuccessors(), key=lambda x: x.getLateStartDate())
+                        task.setLateCompleationDate(
+                            latestStartDateTask.getLateStartDate())
+
+                        task.setLateStartDate(
+                            task.getLateCompleationDate() - task.getExpectedDuration())
+
+                        remainingTasks.remove(task)
+        print('Late Date is set')
+
+    def printLateDates(self):
+        for task in self.getTasks():
+            print(
+                f' Task: {task.getTaskID()} | Predecessor: {[p.getTaskID() for p in task.getPredecessors()]} | Succsessor: {[p.getTaskID() for p in task.getSuccessors()]} | Late Start Date: {task.getLateStartDate()}| Late Compleation Date: {task.getEarlyCompleationDate()}')
+
     def getMinimumProjectDuration(self):
         task = max(self.getTasks(), key=lambda x: x.getEarlyCompleationDate())
         return task.getEarlyCompleationDate()
-
-    def setLateDates(self):
-        # Denne skal jeg få til
-        return
 
 
 # Load class should do this, but here is only for testing
@@ -76,19 +97,16 @@ H.addPredecessor(E)
 J.addPredecessor(G)
 K.addPredecessor(H)
 K.addPredecessor(J)
-# End.addPredecessor(J)
-# End.addPredecessor(H)
-
+End.addPredecessor(K)
 
 tasks = [Start, A, B, C, D, E, F, G, H, J, K, End]
 
-
 warehouse = Project(tasks, 'Warehouse')
-
 
 warehouse.setEarlyDates()
 
+warehouse.setLateDates()
 
 warehouse.printEarlyDates()
-
-print(warehouse.getMinimumProjectDuration())
+print('###########')
+warehouse.printLateDates()
