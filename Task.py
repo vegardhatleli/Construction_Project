@@ -8,10 +8,10 @@ class Task:
         self.predecessors = []
         self.successors = []
         self.duration = duration
-        earlyStartDate = None
-        earlyCompleationDate = None
-        lateStartDate = None
-        lateCompleationDate = None
+        self.earlyStartDate = None
+        self.earlyCompleationDate = None
+        self.lateStartDate = None
+        self.lateCompleationDate = None
 
     def getTaskID(self):
         return self.taskID
@@ -65,8 +65,8 @@ class Task:
     def getLateStartDate(self):
         return self.lateStartDate
 
-    def setLateCompleationDate(self, date):
-        self.lateCompleationDate = date
-
     def getLateCompleationDate(self):
         return self.lateCompleationDate
+
+    def setLateCompleationDate(self, date):
+        self.lateCompleationDate = date

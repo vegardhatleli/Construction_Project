@@ -1,4 +1,5 @@
 from Task import *
+import pandas as pd
 
 
 class Project:
@@ -35,10 +36,16 @@ class Project:
         print('Early dates is set')
         return
 
+    def getMinimumProjectDuration(self):
+        task = max(self.getTasks(), key=lambda x: x.getEarlyCompleationDate())
+        return task.getEarlyCompleationDate()
+
+        '''
     def printEarlyDates(self):
         for task in self.getTasks():
             print(
                 f' Task: {task.getTaskID()} | Predecessor: {[p.getTaskID() for p in task.getPredecessors()]} | Succsessor: {[p.getTaskID() for p in task.getSuccessors()]} | Early Start Date: {task.getEarlyStartDate()}| Early Compleation Date: {task.getEarlyCompleationDate()}')
+        '''
 
     def setLateDates(self):
         remainingTasks = self.getTasks().copy()
@@ -46,13 +53,15 @@ class Project:
             for task in remainingTasks:
                 if not set(task.getSuccessors()).intersection(set(remainingTasks)):
                     if len(task.getSuccessors()) == 0:
+                        # Denne er lowkey feil tror jeg, du må se her
                         task.setLateStartDate(self.getMinimumProjectDuration())
                         remainingTasks.remove(task)
                     else:
-                        latestStartDateTask = min(
+                        maxLateStartDate = min(  # Her står det max i oppgaven, men han mener min
                             task.getSuccessors(), key=lambda x: x.getLateStartDate())
+
                         task.setLateCompleationDate(
-                            latestStartDateTask.getLateStartDate())
+                            maxLateStartDate.getLateStartDate())
 
                         task.setLateStartDate(
                             task.getLateCompleationDate() - task.getExpectedDuration())
@@ -60,14 +69,27 @@ class Project:
                         remainingTasks.remove(task)
         print('Late Date is set')
 
+        '''
     def printLateDates(self):
         for task in self.getTasks():
             print(
-                f' Task: {task.getTaskID()} | Predecessor: {[p.getTaskID() for p in task.getPredecessors()]} | Succsessor: {[p.getTaskID() for p in task.getSuccessors()]} | Late Start Date: {task.getLateStartDate()}| Late Compleation Date: {task.getEarlyCompleationDate()}')
+                f' Task: {task.getTaskID()} | Predecessor: {[p.getTaskID() for p in task.getPredecessors()]} | Succsessor: {[p.getTaskID() for p in task.getSuccessors()]} | Late Start Date: {task.getLateStartDate()}| Late Completion Date: {task.getLateCompleationDate()}')
+        '''
 
-    def getMinimumProjectDuration(self):
-        task = max(self.getTasks(), key=lambda x: x.getEarlyCompleationDate())
-        return task.getEarlyCompleationDate()
+    def printProjectToExcel(self):
+        headers = ['Task', 'Predecessor', 'Succsessor', 'Duration', 'Early Start Date',
+                   'Early Completion Date', 'Late Start Date', 'Late Completion Date', 'Critcal Task?']
+        data = []
+        for task in self.getTasks():
+            critcal = (task.getEarlyStartDate() == task.getLateStartDate())
+            values = [task.getTaskID(), [p.getTaskID() for p in task.getPredecessors()], [p.getTaskID() for p in task.getSuccessors()], task.getExpectedDuration(
+            ), task.getEarlyStartDate(), task.getEarlyCompleationDate(), task.getLateStartDate(), task.getLateCompleationDate(), critcal]
+            data.append(values)
+
+        df = pd.DataFrame(data, columns=headers)
+
+        with pd.ExcelWriter('Warehouse.xlsx') as writer:
+            df.to_excel(writer, sheet_name='Sheet1', index=False)
 
 
 # Load class should do this, but here is only for testing
@@ -107,6 +129,8 @@ warehouse.setEarlyDates()
 
 warehouse.setLateDates()
 
-warehouse.printEarlyDates()
-print('###########')
-warehouse.printLateDates()
+# warehouse.printEarlyDates()
+# print('###########')
+# warehouse.printLateDates()
+
+warehouse.printProjectToExcel()
