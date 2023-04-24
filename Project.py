@@ -1,4 +1,3 @@
-from xml.etree.ElementPath import prepare_self
 from Task import *
 import pandas as pd
 
@@ -108,11 +107,6 @@ class Project:
             durations = eval(durations)
             durations = list(durations)
 
-            print(taskID)
-            print(description)
-            print(durations)
-            print(predecessors)
-
             task = Task(taskID, durations, description)
 
             if (task.getTaskID() != 'Start'):
@@ -121,8 +115,7 @@ class Project:
                     task.addPredecessor(predessesor)
 
             self.addTask(task)
-            print('###')
-        print('Load finish')
+        print('Load from Excel finish')
         return
 
 
