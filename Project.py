@@ -83,7 +83,7 @@ class Project:
 
         df = pd.DataFrame(data, columns=headers)
 
-        with pd.ExcelWriter('Warehouse.xlsx') as writer:
+        with pd.ExcelWriter('Results/Warehouse_Expected.xlsx') as writer:
             df.to_excel(writer, sheet_name='Sheet1', index=False)
 
     def loadProjectFromExcel(self, filepath):
