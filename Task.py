@@ -3,11 +3,12 @@ import random
 
 class Task:
 
-    def __init__(self, taskID, duration):
+    def __init__(self, taskID, duration, description):
         self.taskID = taskID
         self.predecessors = []
         self.successors = []
         self.duration = duration
+        self.description = description
         self.earlyStartDate = None
         self.earlyCompleationDate = None
         self.lateStartDate = None
@@ -70,3 +71,9 @@ class Task:
 
     def setLateCompleationDate(self, date):
         self.lateCompleationDate = date
+
+    def setDescription(self, description):
+        self.description = description
+
+    def getDescription(self):
+        return self.description
