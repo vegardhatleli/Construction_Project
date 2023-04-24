@@ -1,0 +1,30 @@
+// PERT Diagram
+digraph {
+	rankdir=LR
+	Start [shape=box]
+	Start -> A
+	Start -> B
+	A [shape=box]
+	A -> C
+	A -> D
+	A -> E
+	B [shape=box]
+	B -> D
+	C [shape=box]
+	C -> F
+	D [shape=box]
+	D -> G
+	E [shape=box]
+	E -> H
+	F [shape=box]
+	F -> G
+	G [shape=box]
+	G -> J
+	H [shape=box]
+	H -> K
+	J [shape=box]
+	J -> K
+	K [shape=box]
+	K -> End
+	End [shape=box]
+}

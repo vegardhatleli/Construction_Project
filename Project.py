@@ -1,5 +1,6 @@
 from Task import *
-import pandas as pd
+#import pandas as pd
+from graphviz import Digraph
 
 
 class Project:
@@ -90,6 +91,15 @@ class Project:
 
         with pd.ExcelWriter('Warehouse.xlsx') as writer:
             df.to_excel(writer, sheet_name='Sheet1', index=False)
+    
+    def createPertDiagram(self):
+        dot = Digraph(comment='PERT Diagram')
+        dot.attr(rankdir='LR') 
+        for task in self.tasks:
+            dot.node(task.getTaskID(), shape='box')
+            for successor in task.getSuccessors():
+                dot.edge(task.getTaskID(), successor.getTaskID())
+        dot.render('pert', view=True)
 
 
 # Load class should do this, but here is only for testing
@@ -124,13 +134,13 @@ End.addPredecessor(K)
 tasks = [Start, A, B, C, D, E, F, G, H, J, K, End]
 
 warehouse = Project(tasks, 'Warehouse')
+warehouse.createPertDiagram()
+#warehouse.setEarlyDates()
 
-warehouse.setEarlyDates()
-
-warehouse.setLateDates()
+#warehouse.setLateDates()
 
 # warehouse.printEarlyDates()
 # print('###########')
 # warehouse.printLateDates()
 
-warehouse.printProjectToExcel()
+#warehouse.printProjectToExcel()
