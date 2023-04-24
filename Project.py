@@ -1,6 +1,6 @@
 from Task import *
 import pandas as pd
-
+from graphviz import Digraph
 
 class Project:
 
@@ -94,7 +94,7 @@ class Project:
                 continue
             type = row['Types']
             taskID = row['Codes']
-            description = row['Description']
+            description = row['Descriptions']
             durations = str(row['Durations'])
             predecessors = str(row['Predecessors'])
 
@@ -119,30 +119,39 @@ class Project:
         return
 
 
+    def createPertDiagram(self):
+        dot = Digraph(comment='PERT Diagram')
+        dot.attr(rankdir='LR') 
+        for task in self.tasks:
+            dot.node(task.getTaskID(), shape='box')
+            for successor in task.getSuccessors():
+                dot.edge(task.getTaskID(), successor.getTaskID())
+        dot.render('pert', view=True)
+
+
 warehouse = Project([], 'Warehouse')
 warehouse.loadProjectFromExcel(
-    '/Users/vegardhatleli/Downloads/Warehouse.xlsx')
-
+    'Data/Villa.xlsx')
+warehouse.createPertDiagram()
 # print(warehouse.getTasks()[5].getExpectedDuration())
 
-warehouse.setEarlyDates()
-warehouse.setLateDates()
-warehouse.printProjectToExcel()
-
+#warehouse.setEarlyDates()
+#warehouse.setLateDates()
+#warehouse.printProjectToExcel()
 
 '''
-Start = Task('Start', [0, 0, 0])
-A = Task('A', [3, 4, 6])
-B = Task('B', [1, 2, 4])
-C = Task('C', [1, 1, 3])
-D = Task('D', [1, 1, 3])
-E = Task('E', [1, 2, 4])
-F = Task('F', [1, 2, 4])
-G = Task('G', [1, 2, 4])
-H = Task('H', [8, 10, 12])
-J = Task('J', [3, 4, 6])
-K = Task('K', [1, 1, 3])
-End = Task('End', [0, 0, 0])
+Start = Task('Start', [0, 0, 0], 'Start')
+A = Task('A', [3, 4, 6],'Start')
+B = Task('B', [1, 2, 4],'Start')
+C = Task('C', [1, 1, 3],'Start')
+D = Task('D', [1, 1, 3],'Start')
+E = Task('E', [1, 2, 4],'Start')
+F = Task('F', [1, 2, 4],'Start')
+G = Task('G', [1, 2, 4],'Start')
+H = Task('H', [8, 10, 12],'Start')
+J = Task('J', [3, 4, 6],'Start')
+K = Task('K', [1, 1, 3],'Start')
+End = Task('End', [0, 0, 0],'Start')
 
 A.addPredecessor(Start)
 B.addPredecessor(Start)
@@ -162,6 +171,7 @@ End.addPredecessor(K)
 tasks = [Start, A, B, C, D, E, F, G, H, J, K, End]
 
 warehouse = Project(tasks, 'Warehouse')
+warehouse.createPertDiagram()
 
 warehouse.setEarlyDates()
 
