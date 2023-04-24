@@ -53,8 +53,9 @@ class Project:
             for task in remainingTasks:
                 if not set(task.getSuccessors()).intersection(set(remainingTasks)):
                     if len(task.getSuccessors()) == 0:
-                        # Denne er lowkey feil tror jeg, du må se her
                         task.setLateStartDate(self.getMinimumProjectDuration())
+                        task.setLateCompleationDate(
+                            self.getMinimumProjectDuration())
                         remainingTasks.remove(task)
                     else:
                         maxLateStartDate = min(  # Her står det max i oppgaven, men han mener min
