@@ -1,0 +1,19 @@
+Minimum:            265.68
+Maximum:            365.97
+Mean:               318.85853
+Standard Deviation: 17.150306660746846
+
+Decile1:            265.68
+Decile2:            297.344
+Decile3:            303.846
+Decile4:            309.16
+Decile5:            314.248
+Decile6:            318.97
+Decile7:            323.264
+Decile8:            328.294
+Decile9:            333.316
+Decile10:           340.271
+
+Sucsessful:         1000
+Acceptable:         0
+Failed:             0
