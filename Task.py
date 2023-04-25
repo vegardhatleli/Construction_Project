@@ -1,3 +1,4 @@
+from logging import critical
 import random
 
 
@@ -8,11 +9,13 @@ class Task:
         self.predecessors = []
         self.successors = []
         self.duration = duration
+        self.randomDuration = None
         self.description = description
         self.earlyStartDate = None
         self.earlyCompleationDate = None
         self.lateStartDate = None
         self.lateCompleationDate = None
+        self.critcal = False
 
     def getTaskID(self):
         return self.taskID
@@ -45,8 +48,21 @@ class Task:
     def setDuration(self, duration):
         self.duration = duration
 
+    def setRandomDuration(self, riskFactor):
+        if (riskFactor*self.duration[1] < self.duration[0]):
+            self.duration[1] = self.duration[0]
+        elif (riskFactor*self.duration[1] > self.duration[2]):
+            self.duration[1] = self.duration[2]
+        else:
+            self.duration[1] = self.duration[1] * riskFactor
+
+        self.randomDuration = round(random.triangular(self.duration[0], self.duration[2], self.duration[1]),2)
+
+    def getRandomDuration(self):
+        return self.randomDuration
+
     def getDuration(self):
-        return random.triangular(self.duration[0], self.duration[2], self.duration[1])
+        return self.duration
 
     def setEarlyStartDate(self, date):
         self.earlyStartDate = date
@@ -77,3 +93,12 @@ class Task:
 
     def getDescription(self):
         return self.description
+    
+    def setCritcal(self, bool):
+        self.critical = bool
+
+    def getCritical(self):
+        if abs(self.getLateStartDate() - self.getEarlyStartDate()) <= 0.1:
+            return True
+        else:
+            return False
