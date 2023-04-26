@@ -84,7 +84,7 @@ class Project:
 
         df = pd.DataFrame(data, columns=headers)
 
-        with pd.ExcelWriter('Results/VillaTestEcpe.xlsx') as writer:
+        with pd.ExcelWriter('Results/VillaWithGate.xlsx') as writer:
             df.to_excel(writer, sheet_name='Sheet1', index=False)
 
     def loadProjectFromExcel(self, filepath):
@@ -185,6 +185,18 @@ class Project:
             durations.append(round(self.setEarlyDatesRandom(riskfactor),2))
         return durations
 
+    def prepareFilesForLearning(self,data):
+        trainingInstances = []
+        for time in data:
+            if time <= 371 * 1.05:
+                label = 0
+            if time > 371 * 1.05 and time <= 371 * 1.15:
+                label = 1
+            if time > 371 * 1.15:
+                label = 2
+            ##TODO må kanksje gjøres til csv
+            trainingInstances.append([time, label])
+        return trainingInstances
 
     def sampleDurationCalculator(self, data):
         minValue = min(data)
@@ -223,12 +235,14 @@ class Project:
 
 
 
-
 warehouse = Project([], 'Warehouse')
 warehouse.loadProjectFromExcel(
-    'Data/Villa.xlsx')
+    'Data/Villa copy.xlsx')
 
-alldata = warehouse.randomSampleOfDurations(1.4)
-stats = warehouse.sampleDurationCalculator(alldata)
-warehouse.sampleDurationTable(stats)
+warehouse.setEarlyDates()
+warehouse.setLateDates()
+warehouse.printProjectToExcel()
+#alldata = warehouse.randomSampleOfDurations(1.0)
+#stats = warehouse.sampleDurationCalculator(alldata)
+#print(warehouse.prepareFilesForLearning(alldata))
 #print(warehouse.sampleDurationCalculator(data))
