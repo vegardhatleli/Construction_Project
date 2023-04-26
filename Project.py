@@ -6,6 +6,8 @@ import numpy as np
 
 class Project:
 
+    #Kanskje prosjekt skal ta inn en fil her? Så at alle prosjekt kommer fra en excel fil? Løser ikke problemet med at vi laster inn filen 1000 ganger i ML greiene da
+
     def __init__(self, tasks, projectID):
         self.projectID = projectID
         self.tasks = tasks
@@ -43,7 +45,6 @@ class Project:
                             int(task.getEarlyStartDate()) + int(task.getExpectedDuration()))
 
                         remainingTasks.remove(task)
-        print('Early dates is set')
         return
 
     def getMinimumProjectDuration(self):
@@ -71,7 +72,6 @@ class Project:
                             task.getLateCompleationDate() - task.getExpectedDuration())
 
                         remainingTasks.remove(task)
-        print('Late Date is set')
 
     def printProjectToExcel(self):
         headers = ['Task', 'Predecessor', 'Succsessor', 'Duration', 'Description', 'Early Start Date',
@@ -116,7 +116,6 @@ class Project:
                     task.addPredecessor(predessesor)
 
             self.addTask(task)
-        print('Load from Excel finish')
         return
 
 
@@ -152,7 +151,6 @@ class Project:
                             task.getEarlyStartDate() + task.getRandomDuration())
 
                         remainingTasks.remove(task)
-        print('Early dates is set')
         return self.getMinimumProjectDuration()
 
     def setLateDatesRandom(self):
@@ -176,8 +174,10 @@ class Project:
                             task.getLateCompleationDate() - task.getRandomDuration())
 
                         remainingTasks.remove(task)
-        print('Late Date is set')
         return
+
+
+    #TODO: det under her i en egen fil for bedre struktur kanskje? Heller at funksjonene tar inn et prosjekt kontra "seg selv"?
 
     def randomSampleOfDurations(self, riskfactor):
         durations = []
@@ -185,18 +185,6 @@ class Project:
             durations.append(round(self.setEarlyDatesRandom(riskfactor),2))
         return durations
 
-    def prepareFilesForLearning(self,data):
-        trainingInstances = []
-        for time in data:
-            if time <= 371 * 1.05:
-                label = 0
-            if time > 371 * 1.05 and time <= 371 * 1.15:
-                label = 1
-            if time > 371 * 1.15:
-                label = 2
-            ##TODO må kanksje gjøres til csv
-            trainingInstances.append([time, label])
-        return trainingInstances
 
     def sampleDurationCalculator(self, data):
         minValue = min(data)
@@ -241,7 +229,8 @@ warehouse.loadProjectFromExcel(
 
 warehouse.setEarlyDates()
 warehouse.setLateDates()
-warehouse.printProjectToExcel()
+#warehouse.createPertDiagram()
+#warehouse.printProjectToExcel()
 #alldata = warehouse.randomSampleOfDurations(1.0)
 #stats = warehouse.sampleDurationCalculator(alldata)
 #print(warehouse.prepareFilesForLearning(alldata))

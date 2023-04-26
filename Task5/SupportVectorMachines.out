@@ -1,0 +1,10 @@
+Confusion Matrix and Accuracy with SupportVectorMachines: 
+
+             Success    Acceptable    Failure
+---------------------------------------------
+Success                87          12           0
+Acceptable              6          70           0
+Failure                 0          16           9
+
+
+Accuracy: 83.0%
