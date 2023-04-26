@@ -94,7 +94,9 @@ digraph {
 	"J.3" [shape=box]
 	"J.3" -> "J.1"
 	"J.1" [shape=box]
-	"J.1" -> "K.1"
+	"J.1" -> Gate
+	Gate [shape=box]
+	Gate -> "K.1"
 	"K.1" [shape=box]
 	"K.1" -> "L.1"
 	"K.1" -> "L.2"

@@ -1,0 +1,10 @@
+Confusion Matrix and Accuracy with KNeighborsClassifier: 
+
+             Success    Acceptable    Failure
+---------------------------------------------
+Success                77           8           0
+Acceptable             14          73           3
+Failure                 0           9          16
+
+
+Accuracy: 83.0%
