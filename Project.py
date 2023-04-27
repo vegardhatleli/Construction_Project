@@ -224,7 +224,7 @@ class Project:
 
 
 
-
+'''
 
 warehouse = Project([], 'Warehouse')
 warehouse.loadProjectFromExcel(
@@ -238,3 +238,4 @@ warehouse.createPertDiagram()
 #stats = warehouse.sampleDurationCalculator(alldata)
 #print(warehouse.prepareFilesForLearning(alldata))
 #print(warehouse.sampleDurationCalculator(data))
+'''

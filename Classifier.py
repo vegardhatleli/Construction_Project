@@ -91,7 +91,7 @@ def calculatePredictionResults(testlabels, predictedLabels):
 
 
 
-
+'''
 projects = createSampleData()
 
 model1 = DecisionTreeClassifier()
@@ -106,3 +106,4 @@ calculatePredictionResults(testLabels,predictedLabels)
 
 
 
+'''
