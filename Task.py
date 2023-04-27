@@ -1,4 +1,3 @@
-from logging import critical
 import random
 
 
