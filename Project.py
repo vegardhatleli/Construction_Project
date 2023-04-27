@@ -123,7 +123,10 @@ class Project:
         dot = Digraph(comment='PERT Diagram')
         dot.attr(rankdir='LR') 
         for task in self.tasks:
-            dot.node(task.getTaskID(), shape='box')
+            if task.getTaskID() == 'Gate':
+                dot.node(task.getTaskID(), shape='oval',style='filled', color='red')
+            else:
+                dot.node(task.getTaskID(), shape='box')
             for successor in task.getSuccessors():
                 dot.edge(task.getTaskID(), successor.getTaskID())
         dot.render('pert', view=True)
@@ -229,7 +232,7 @@ warehouse.loadProjectFromExcel(
 
 warehouse.setEarlyDates()
 warehouse.setLateDates()
-#warehouse.createPertDiagram()
+warehouse.createPertDiagram()
 #warehouse.printProjectToExcel()
 #alldata = warehouse.randomSampleOfDurations(1.0)
 #stats = warehouse.sampleDurationCalculator(alldata)
