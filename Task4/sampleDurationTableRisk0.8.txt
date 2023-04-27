@@ -1,19 +1,19 @@
-Minimum:            265.68
-Maximum:            365.97
-Mean:               318.85853
-Standard Deviation: 17.150306660746846
+Minimum:            266.16
+Maximum:            392.06
+Mean:               318.2224
+Standard Deviation: 18.092555225688677
 
-Decile1:            265.68
-Decile2:            297.344
-Decile3:            303.846
-Decile4:            309.16
-Decile5:            314.248
-Decile6:            318.97
-Decile7:            323.264
-Decile8:            328.294
-Decile9:            333.316
-Decile10:           340.271
+Decile1:            266.16
+Decile2:            295.22400000000005
+Decile3:            303.128
+Decile4:            308.881
+Decile5:            313.478
+Decile6:            317.975
+Decile7:            322.678
+Decile8:            326.88599999999997
+Decile9:            332.622
+Decile10:           341.227
 
-Sucsessful:         1000
-Acceptable:         0
+Sucsessful:         999
+Acceptable:         1
 Failed:             0

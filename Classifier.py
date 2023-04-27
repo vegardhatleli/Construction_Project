@@ -59,17 +59,16 @@ def prepareDataForLearning(projects):
 
     return trainingInstances, trainingLabels, testInstances, testLabels
 
-#Her laster vi inn excel filen 1000 ganger, mulig å slippe det på en måte vel? 
 def createSampleData():
     listOfProjects = []
     for i in range(1000):
-        warehouse = p.Project([], f'Warehouse{i}')
-        warehouse.loadProjectFromExcel(
+        villa = p.Project([], f'Villa{i}')
+        villa.loadProjectFromExcel(
             'Data/Villa copy.xlsx')
         factors = [0.8 , 1.0, 1.2, 1.4]
-        warehouse.setEarlyDatesRandom(factors[rd.randint(0,3)])
-        warehouse.setLateDatesRandom()
-        listOfProjects.append(warehouse)
+        villa.setEarlyDatesRandom(factors[rd.randint(0,3)])
+        villa.setLateDatesRandom()
+        listOfProjects.append(villa)
     return listOfProjects
 
 def calculatePredictionResults(testlabels, predictedLabels):
@@ -89,21 +88,15 @@ def calculatePredictionResults(testlabels, predictedLabels):
     print('\n')
     print(f'Accuracy: {accuracy}%')
 
+def runClassifier():
+    projects = createSampleData()
+    model1 = DecisionTreeClassifier()
+    model2 = svm.SVC()
+    model3 = KNeighborsClassifier()
+    trainingInstances, trainingLabels, testInstances, testLabels = prepareDataForLearning(projects)
 
-
-'''
-projects = createSampleData()
-
-model1 = DecisionTreeClassifier()
-model2 = svm.SVC()
-model3 = KNeighborsClassifier()
-
-trainingInstances, trainingLabels, testInstances, testLabels = prepareDataForLearning(projects)
-
-model3.fit(trainingInstances, trainingLabels)
-predictedLabels = model3.predict(testInstances)
-calculatePredictionResults(testLabels,predictedLabels)
-
-
-
-'''
+    #Run the model you want (model1, model2, model3)
+    #Remember to change the name of the write to file if you want to display data
+    model3.fit(trainingInstances, trainingLabels)
+    predictedLabels = model3.predict(testInstances)
+    #calculatePredictionResults(testLabels,predictedLabels)

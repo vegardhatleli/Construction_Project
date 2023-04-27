@@ -34,13 +34,13 @@ def prepareDataForLearning(projects):
 def createSampleData():
     listOfProjects = []
     for i in range(1000):
-        warehouse = p.Project([], f'Warehouse{i}')
-        warehouse.loadProjectFromExcel(
+        villa = p.Project([], f'Villa{i}')
+        villa.loadProjectFromExcel(
             'Data/Villa copy.xlsx')
         factors = [0.8 , 1.0, 1.2, 1.4]
-        warehouse.setEarlyDatesRandom(factors[rd.randint(0,3)])
-        warehouse.setLateDatesRandom()
-        listOfProjects.append(warehouse)
+        villa.setEarlyDatesRandom(factors[rd.randint(0,3)])
+        villa.setLateDatesRandom()
+        listOfProjects.append(villa)
     return listOfProjects
 
 
@@ -58,13 +58,16 @@ def calculatePredictionResults(actualDuration, predictedDuration):
         file.write("R^2\t{0:g}\n".format(metrics.r2_score(actualDuration, predictedDuration)))
         
 
-projects = createSampleData()
-trainingInstances, trainingLabels, testInstances, testLabels = prepareDataForLearning(projects)
-model1 = SVR()
-model2 = tree.DecisionTreeRegressor()
-model3 = KNeighborsRegressor()
+def runRegressor():
+    projects = createSampleData()
+    trainingInstances, trainingLabels, testInstances, testLabels = prepareDataForLearning(projects)
+    model1 = SVR()
+    model2 = tree.DecisionTreeRegressor()
+    model3 = KNeighborsRegressor()
 
-model3.fit(trainingInstances,trainingLabels)
-predictedLabels = model3.predict(testInstances)
-calculatePredictionResults(testLabels,predictedLabels)
+    #Run the model you want (model1, model2, model3)
+    #Remember to change the name of the write to file if you want to display data
+    model3.fit(trainingInstances,trainingLabels)
+    predictedLabels = model3.predict(testInstances)
+    #calculatePredictionResults(testLabels,predictedLabels)
 

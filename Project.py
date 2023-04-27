@@ -6,8 +6,6 @@ import numpy as np
 
 class Project:
 
-    #Kanskje prosjekt skal ta inn en fil her? Så at alle prosjekt kommer fra en excel fil? Løser ikke problemet med at vi laster inn filen 1000 ganger i ML greiene da
-
     def __init__(self, tasks, projectID):
         self.projectID = projectID
         self.tasks = tasks
@@ -180,62 +178,4 @@ class Project:
         return
 
 
-    #TODO: det under her i en egen fil for bedre struktur kanskje? Heller at funksjonene tar inn et prosjekt kontra "seg selv"?
 
-    def randomSampleOfDurations(self, riskfactor):
-        durations = []
-        for i in range (1000):
-            durations.append(round(self.setEarlyDatesRandom(riskfactor),2))
-        return durations
-
-
-    def sampleDurationCalculator(self, data):
-        minValue = min(data)
-        maxValue = max(data)
-        meanValue = statistics.mean(data)
-        standardDeviation = statistics.stdev(data)
-        decile = np.percentile(data, np.arange(0,100,10))
-        numberOfSuccessful = 0
-        numberOfAcceptable = 0
-        numberOfFailed = 0
-        for time in data:
-            if time <= 371 * 1.05:
-                numberOfSuccessful += 1
-            if time > 371 * 1.05 and time <= 371 * 1.15:
-                numberOfAcceptable += 1
-            if time > 371 * 1.15:
-                numberOfFailed += 1
-        return minValue,maxValue, meanValue,standardDeviation, decile, numberOfSuccessful, numberOfAcceptable, numberOfFailed
-
-    def sampleDurationTable(self, data):
-        print(data)
-        with open('Task4/sampleDurationTableRisk1.4.txt', 'w') as file:
-            file.write(f"Minimum:            {data[0]}\n")
-            file.write(f"Maximum:            {data[1]}\n")
-            file.write(f"Mean:               {data[2]}\n")
-            file.write(f"Standard Deviation: {data[3]}\n\n")
-            for i in range(9):
-                file.write(f"Decile{i+1}:            {data[4][i]}\n")
-            file.write(f"Decile10:           {data[4][9]}\n\n")
-            file.write(f"Sucsessful:         {data[5]}\n")
-            file.write(f"Acceptable:         {data[6]}\n")
-            file.write(f"Failed:             {data[7]}\n")
-
-
-
-
-'''
-
-warehouse = Project([], 'Warehouse')
-warehouse.loadProjectFromExcel(
-    'Data/Villa copy.xlsx')
-
-warehouse.setEarlyDates()
-warehouse.setLateDates()
-warehouse.createPertDiagram()
-#warehouse.printProjectToExcel()
-#alldata = warehouse.randomSampleOfDurations(1.0)
-#stats = warehouse.sampleDurationCalculator(alldata)
-#print(warehouse.prepareFilesForLearning(alldata))
-#print(warehouse.sampleDurationCalculator(data))
-'''
