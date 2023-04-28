@@ -1,0 +1,10 @@
+Confusion Matrix and Accuracy with SupportVectorMachine classifier and gate before E1: 
+
+             Success    Acceptable    Failure
+---------------------------------------------
+Success                87          18           0
+Acceptable             14          54           0
+Failure                 2          25           0
+
+
+Accuracy: 70.5%

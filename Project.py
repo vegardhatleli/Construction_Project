@@ -127,7 +127,7 @@ class Project:
                 dot.node(task.getTaskID(), shape='box')
             for successor in task.getSuccessors():
                 dot.edge(task.getTaskID(), successor.getTaskID())
-        dot.render('pert', view=True)
+        dot.render('Task5/Diagram/PertDiagramWithGateEarly', view=True)
 
 # Task 4
 

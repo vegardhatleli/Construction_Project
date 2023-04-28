@@ -45,10 +45,12 @@ def sampleDurationTable(data):
 def runStatistics():
     villa = p.Project([], 'Villa')
     villa.loadProjectFromExcel(
-        'Data/Villa copy.xlsx')
-
+        'Data/Villa copy 2.xlsx')
+    villa.createPertDiagram()
     #Run the riskfactor you want (0.8, 1.0, 1.2, 1.4)
     #Remember to change the name of the write to file if you want to display data
-    alldata = randomSampleOfDurations(1.4, villa)
-    stats = sampleDurationCalculator(alldata)
+    #alldata = randomSampleOfDurations(1.4, villa)
+    #stats = sampleDurationCalculator(alldata)
     #sampleDurationTable(stats)
+
+#runStatistics()

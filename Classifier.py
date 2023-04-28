@@ -73,11 +73,11 @@ def createSampleData():
 
 def calculatePredictionResults(testlabels, predictedLabels):
     class_names = ['Success', 'Acceptable', 'Failure']
-    f = open("Task5/KNeighborsClassifier.out", "w")
+    f = open("Task5/DecitionTreeClassifier.out", "w")
     sys.stdout = f
     cm = confusion_matrix(testlabels,predictedLabels)
     accuracy = ((cm[0][0] + cm[1][1] + cm[2][2])/200) * 100
-    print('Confusion Matrix and Accuracy with KNeighborsClassifier: \n')
+    print('Confusion Matrix and Accuracy with decisionTree classifier and gate before K1: \n')
     print('             Success    Acceptable    Failure')
     print('---------------------------------------------')
     for i in range(len(cm)):
@@ -97,6 +97,8 @@ def runClassifier():
 
     #Run the model you want (model1, model2, model3)
     #Remember to change the name of the write to file if you want to display data
-    model3.fit(trainingInstances, trainingLabels)
-    predictedLabels = model3.predict(testInstances)
-    #calculatePredictionResults(testLabels,predictedLabels)
+    model1.fit(trainingInstances, trainingLabels)
+    predictedLabels = model1.predict(testInstances)
+    calculatePredictionResults(testLabels,predictedLabels)
+
+#runClassifier()

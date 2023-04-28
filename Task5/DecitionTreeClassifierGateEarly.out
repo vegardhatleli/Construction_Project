@@ -1,0 +1,10 @@
+Confusion Matrix and Accuracy with DecisionTree Classifier and gate before E1: 
+
+             Success    Acceptable    Failure
+---------------------------------------------
+Success                77          24           8
+Acceptable             24          28          16
+Failure                 4           8          11
+
+
+Accuracy: 57.99999999999999%

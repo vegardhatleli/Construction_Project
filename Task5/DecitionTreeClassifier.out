@@ -1,10 +1,10 @@
-Confusion Matrix and Accuracy with DecitionTreeClassifier: 
+Confusion Matrix and Accuracy with DecisionTreeClassifier and gate before K1: 
 
              Success    Acceptable    Failure
 ---------------------------------------------
 Success                83          15           0
-Acceptable             15          56           7
-Failure                 0           5          19
+Acceptable             10          53           6
+Failure                 0          14          19
 
 
-Accuracy: 79.0%
+Accuracy: 77.5%

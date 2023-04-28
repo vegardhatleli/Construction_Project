@@ -1,0 +1,10 @@
+Confusion Matrix and Accuracy with K nearest neighbour classifier and gate before E1: 
+
+             Success    Acceptable    Failure
+---------------------------------------------
+Success                90          21           0
+Acceptable             20          32           4
+Failure                 3          23           7
+
+
+Accuracy: 64.5%
