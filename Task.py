@@ -25,12 +25,6 @@ class Task:
     def addPredecessor(self, task):
         self.predecessors.append(task)
         task.addSuccessor(self)
-        '''
-        for predess in task.getPredecessors():
-            if predess not in self.predecessors:
-                self.predecessors.append(predess)
-                predess.addSuccessor(self)
-                '''
 
     def addSuccessor(self, task):
         self.successors.append(task)

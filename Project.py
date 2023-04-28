@@ -1,8 +1,6 @@
 from Task import *
 import pandas as pd
 from graphviz import Digraph
-import statistics
-import numpy as np
 
 class Project:
 
@@ -128,8 +126,6 @@ class Project:
             for successor in task.getSuccessors():
                 dot.edge(task.getTaskID(), successor.getTaskID())
         dot.render('Task5/Diagram/PertDiagramWithGateEarly', view=True)
-
-# Task 4
 
     def setEarlyDatesRandom(self, riskFactor):
         for task in self.getTasks():

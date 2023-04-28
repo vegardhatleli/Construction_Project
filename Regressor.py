@@ -1,6 +1,5 @@
 import random as rd
 import Project as p
-import sys
 import math
 from sklearn import metrics
 from sklearn.svm import SVR
@@ -36,7 +35,7 @@ def createSampleData():
     for i in range(1000):
         villa = p.Project([], f'Villa{i}')
         villa.loadProjectFromExcel(
-            'Data/Villa copy.xlsx')
+            'Data/Villa copy 2.xlsx')
         factors = [0.8 , 1.0, 1.2, 1.4]
         villa.setEarlyDatesRandom(factors[rd.randint(0,3)])
         villa.setLateDatesRandom()
@@ -45,7 +44,7 @@ def createSampleData():
 
 
 def calculatePredictionResults(actualDuration, predictedDuration):
-    with open('Task6/KNeighborsRegressor.txt', 'w') as file:
+    with open('Task6/K-NeighborsRegressionGateEarly.txt', 'w') as file:
         file.write('## K-Neighbors Regression ## \n')
         file.write("Actual duration\tPredicted duration\n")
         for i in range(0, len(actualDuration)):
@@ -69,5 +68,6 @@ def runRegressor():
     #Remember to change the name of the write to file if you want to display data
     model3.fit(trainingInstances,trainingLabels)
     predictedLabels = model3.predict(testInstances)
-    #calculatePredictionResults(testLabels,predictedLabels)
+    calculatePredictionResults(testLabels,predictedLabels)
 
+#runRegressor()

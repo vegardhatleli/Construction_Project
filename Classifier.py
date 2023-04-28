@@ -1,16 +1,10 @@
-from cgi import test
 import Project as p
-import Task
 import random as rd
 import sys
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn import svm
 from sklearn.neighbors import KNeighborsClassifier
-import numpy as np
-
-
-## CLASSIFIER
 
 def PrintConfusionMatrix(labels, actualLabels, predictedLabels, output):
     numberOfLabels = len(labels)
