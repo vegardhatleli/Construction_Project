@@ -21,8 +21,6 @@ def PrintConfusionMatrix(labels, actualLabels, predictedLabels, output):
             output.write("\t{0:d}".format(counts[row][column]))
         output.write("\n")
 
-
-
 def prepareProjectForLearninig(project):
     trainingInstances = []
     for task in project.getTasks():

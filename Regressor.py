@@ -42,7 +42,6 @@ def createSampleData():
         listOfProjects.append(villa)
     return listOfProjects
 
-
 def calculatePredictionResults(actualDuration, predictedDuration):
     with open('Task6/K-NeighborsRegressionGateEarly.txt', 'w') as file:
         file.write('## K-Neighbors Regression ## \n')
@@ -54,8 +53,7 @@ def calculatePredictionResults(actualDuration, predictedDuration):
         file.write('RESULT\n')
         file.write("Mean Absolute Error\t{0:g}\n".format(metrics.mean_absolute_error(actualDuration, predictedDuration)))
         file.write("Root Mean Square Error\t{0:g}\n".format(math.sqrt(metrics.mean_squared_error(actualDuration, predictedDuration))))
-        file.write("R^2\t{0:g}\n".format(metrics.r2_score(actualDuration, predictedDuration)))
-        
+        file.write("R^2\t{0:g}\n".format(metrics.r2_score(actualDuration, predictedDuration)))        
 
 def runRegressor():
     projects = createSampleData()
